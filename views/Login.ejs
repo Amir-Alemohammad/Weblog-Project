@@ -1,0 +1,17 @@
+    <form class="form-inputs" action="/users/Login" method="post">
+      <h1 class="h3 mb-3" id="title">ورود به بخش مدیریت</h1>
+      <%- include("./includes/LoginMessages.ejs") -%>
+        <span>آدرس ایمیل</spanclass=>
+      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="example@gmail.com" required autofocus>
+      <span> کلمه عبور </spanss=>
+      <input name="password" type="password" id="input-login" class="form-control" placeholder="password" required>
+      <img src="/images/visible-eye.png" alt="images" id="visible-img" onclick="loginForm()">
+      <div class="checkbox mb-3">
+        <label>
+          <input name="remember" type="checkbox" value="remember-me"> من را به خاطر بسپار
+        </label>
+        <div class="g-recaptcha" data-sitekey="<%=key%>"></div>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+    </form>
+    

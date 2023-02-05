@@ -1,0 +1,21 @@
+    <form class="form-inputs" action="/users/Register" method="post">
+      <h1 class="h3 mb-3" id="title">ثبت نام کاربر جدید</h1>
+        <%- include("./includes/ValidationMessages.ejs") -%>   
+        <span>نام و نام خانوادگی</span>
+      <input type="text" id="inputFullname" name="fullname" class="form-control" placeholder="نام و نام خانوادگی را به فارسی وارد کنید" required autofocus>
+      <span> ایمیل </span>
+      <input type="email" id="inputEmail" name="email" class="form-control" placeholder="ایمیل" required>
+      <span> رمز عبور </span>
+      <input type="password" id="input-login" name="password" class="form-control" placeholder="رمز عبور" required>
+      <img src="/images/visible-eye.png" alt="images" id="visible-img" onclick="loginForm()">
+      <span> تکرار رمز عبور </span>
+      <input type="password" id="inputConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="تکرار رمز عبور" required>
+      <img src="/images/visible-eye.png" alt="images" id="img" onclick="ConfirmPassLogin()">
+      <div class="checkbox mb-3">
+        <label>
+            <a href="/users/login">اکانت کاربری دارم</a>
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">ثبت نام</button>
+    </form>
+   
