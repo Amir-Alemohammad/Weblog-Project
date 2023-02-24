@@ -1,0 +1,28 @@
+<% if(posts.length > 0) { %> <% for(let post of posts) { %>
+    <div class="card mt-4 mb-4">
+        <img
+            class="card-img-top"
+            src="http://ghorbany.dev/uploads/thumbnails/<%=post.thumbnail%>"
+            alt="Card image cap"
+        />
+        <div class="card-body">
+            <h2 class="card-title"><%= post.title %></h2>
+            <p class="card-text text-justify"><%- trunCate(post.body,400) %></p>
+            <a href="/post/<%= post._id %>" class="btn btn-primary">بیشتر ...</a>
+        </div>
+        <div class="card-footer text-muted">
+            پست شده در تاریخ : <%=formatDate(post.createdAt) %>
+        </div>
+    </div>
+    <% } %> <% } else {%>
+    <div class="m-5 text-center">
+        <div class="text-center" id="badgeText">
+      
+            <h1>
+              <span class="badge badge-danger">در حال حاضر  پستی وجود ندارد</span>
+            </h1>
+    
+            
+          </div>
+    </div>
+    <% } %>

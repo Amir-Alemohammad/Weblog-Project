@@ -1,13 +1,10 @@
 const express = require('express');
-const dotEnv = require('dotenv');
-const morgan = require('morgan');
 const expressLayouts = require("express-ejs-layouts");
-const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const passport = require("passport");
 const session = require('express-session');
 const MongoStore = require("connect-mongo");
-const debug = require("debug")("weblog-project");
+const fileUpload = require('express-fileupload');
 
 
 const path = require('path');
@@ -19,26 +16,22 @@ const RegisterRoute = require('./routes/Register.js');
 const errorController = require('./controllers/errorController.js');
 
 
-//Load-Config
-dotEnv.config({
-    path: "./config/config.env",
-});
+
+
+
 
 //DataBase-Connection
 connectDB();
-debug("Connected to DataBase!");
 
 
 
 //Passport Configuration
 require("./config/passport.js");
 
+
 const app = express();
 
-if(process.env.NODE_ENV == "development"){
-    debug("Morgan Enabled!");
-    app.use(morgan("combined",{ stream: logger.stream }));
-}
+
 
 //View-Engin
 app.use(expressLayouts);
@@ -48,8 +41,14 @@ app.set("views","views");
 
 
 //BodyParser
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+
+//File Upload Middleware
+// @desc parse the file and give you to req.files
+app.use(fileUpload());
+
 
 
 /////Session 
@@ -83,7 +82,6 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use("/",indexRoutes);
 app.use("/users",RegisterRoute);
 app.use("/dashboard",dashboard);
-
 
 //Error 404
 app.use(errorController.get404);

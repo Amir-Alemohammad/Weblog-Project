@@ -28,6 +28,16 @@
 
    <%- body -%>
 
+   
+    <%if(path === "/"){%>
+        <%- include("../includes/footer.ejs") -%>
+   
+    <%}%>
+    
+
+
+
+
    <script src="/js/jquery.slim.min.js"></script>
    <script src="/js/bootstrap.min.js"></script>
    <%if(path === "/Register"){%>

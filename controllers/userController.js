@@ -23,7 +23,7 @@ const handleLogin = async (req, res, next) => {
         req.flash("error","گزینه من رباط نیستم الزامی می باشد!");
         return res.redirect("/users/login");
     }
-    const secretKey = process.env.SECRET_KEY;
+    const secretKey = process.env.CAPTCHA_KEY;
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body["g-recaptcha-response"]}&remoteip=${req.connection.remoteAddress}`
 
     const response = await fetch(verifyUrl,{
@@ -60,17 +60,17 @@ const rememberMe = (req,res) => {
     }
     res.redirect("/dashboard");
 }
-const handleLogout = (req,res,next) => {
+
+const logout = (req,res,next) => {
+    
     req.session = null;
     
     req.logout((err)=>{
-            if(err){return next(err)}
-        
-            
-            // req.flash("success_msg","خروج موفقیت آمیز بود.");
-            
-            res.redirect("/users/login");
+        if(err){
+            return next(err);
+        }
     });
+    res.redirect("/users/login");
 };
 
 
@@ -127,7 +127,7 @@ const addUser = async (req,res) => {
 }
 module.exports = {
     handleLogin,
-    handleLogout,
+    logout,
     login,
     register,
     addUser,

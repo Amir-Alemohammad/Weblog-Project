@@ -16,7 +16,7 @@ router.post("/Login", userController.handleLogin, userController.rememberMe);
 
 
 // @desc Logout Handle
-router.get("/logout", authenticated, userController.handleLogout);
+router.get("/logout", authenticated, userController.logout);
 
 
 // @desc Register Route
