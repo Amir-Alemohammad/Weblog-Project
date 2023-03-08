@@ -6,17 +6,20 @@ const session = require('express-session');
 const MongoStore = require("connect-mongo");
 const fileUpload = require('express-fileupload');
 
-
+const dotenv = require("dotenv");
 const path = require('path');
 const indexRoutes = require('./routes/index.js');
 const connectDB = require('./config/db.js');
-const logger = require("./config/winston.js");
 const dashboard = require('./routes/Dashboard.js');
 const RegisterRoute = require('./routes/Register.js');
 const errorController = require('./controllers/errorController.js');
 
 
 
+
+dotenv.config({
+    path: "./config/config.env",
+});
 
 
 
@@ -30,6 +33,8 @@ require("./config/passport.js");
 
 
 const app = express();
+
+
 
 
 

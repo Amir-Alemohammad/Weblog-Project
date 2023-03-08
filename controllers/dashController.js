@@ -112,7 +112,7 @@ const editPost = async (req,res) => {
                     name:"placeholder",
                     size:0,
                     mimetype:"image/jpeg",
-                },
+                },  
             });
         }
         
@@ -167,39 +167,42 @@ const editPost = async (req,res) => {
 } 
 const uploadImage = (req,res) => {
 
-    const upload = multer({
-        limits: {
-            fileSize: 4000000,
-        },
-        // dest: "uploads/",
-        // storage: storage,
-        fileFilter: fileFilter,
-    }).single("image"); 
+    
+  const upload = multer({
+    limits: {
+      fileSize: 4000000,
+    },
+    // dest: "uploads/",
+    // storage: storage,
+    fileFilter: fileFilter,
+  }).single("image");
 
-    upload(req , res , async (err) => {
+  upload(req, res, async (err) => {
 
-        if(err){
-            if(err.code === "LIMIT_FILE_SIZE"){
+    console.log(err);
+    if (err) {
+      if (err.code === "LIMIT_FILE_SIZE") {
+        res.status(400).send("حجم عکس ارسالی نباید بیشتر از 4 مگابایت باشد");
+      }
+      res.status(400).send(err)
+    }
+    else {
+      if (req.files) {
+        const image = req.files.image;
+     
+        const filename = `${shortId.generate()}_${image.name}`
+       
+        await sharp(image.data).jpeg({
+          quality: 50,
+        }).toFile(`./public/uploads/${filename}`)
 
-                res.status(400).send("حجم عکس ارسالی نباید بیشتر از 4 مگابایت باشد");
-            }
-            res.status(400).send(err)
-        }
-        else
-        {
-            if(req.file){
-                const filename = `${shortId.generate()}_${req.file.originalname}`
-                await sharp(req.file.buffer).jpeg({
-                    quality: 50,
-                }).toFile(`./public/uploads/${filename}`)
+          .catch(err => console.log(err));
 
-                .catch(err => console.log(err));
-
-                res.status(200).send(`http://ghorbany.dev/uploads/${filename}`);
-            }else{
-                res.send("برای آپلود عکسی انتخاب کنید")
-            }
-        }
+        res.status(200).send(`http://localhost:3000/uploads/${filename}`);
+      } else {
+        res.send("برای آپلود عکسی انتخاب کنید")
+      }
+    }
         
     });
 }
