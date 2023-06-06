@@ -14,7 +14,7 @@
               <% for(let post of posts){%>
               <tr>
                 <td>1</td>
-                <td><a href="/blogs/<%=post._id%>"><%= post.title %></a></td>
+                <td><a href="/"><%= post.title %></a></td>
                 <td><%= formatDate(post.Date) %></td>
                 <td>
                   <span class="badge <%= post.status === 'public' ? 'badge-success' : 'badge-danger'%> ">
